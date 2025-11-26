@@ -25,3 +25,24 @@ O sistema foi dividido em 4 camadas concêntricas, respeitando rigorosamente a *
 ### 4. Main (Injeção de Dependência)
 * **Responsabilidade:** Ponto de entrada ("Entry Point").
 * **Injeção de Dependência:** É a única classe que "conhece tudo". Ela instancia as implementações concretas de `Infrastructure` e as injeta nos construtores dos `UseCases`.
+
+---
+
+## recados
+
+seguinte, ja adiantei a configuração do projeto, to usando **Maven** e **Java 21**, então certifica que tá rodando com essa versão.
+
+### Divisão do Trabalho
+
+**Minha Parte (O que eu tô fazendo):**
+*  Tô criando as regras de `Course`, `Enrollment` e a lógica dos `SubscriptionPlans` (aquela parte de limitar matrícula no plano básico).
+*  vo fazer tambem a parte de Relatórios usando **Streams** e a exportação dinâmica de CSV usando **Reflection** (pra não precisar ficar mexendo em string na mão).
+*  Já defini as interfaces `CourseRepository` e `EnrollmentRepository`.
+
+**Sua Parte (O que precisa ser feito):**
+* **Gestão de Usuários:** Cria as entidades `User`, `Admin` e `Student`.
+* **Suporte:** Precisamos da Fila de Tickets (`SupportTicket`). Lembra que tem que ser FIFO (Fila mesmo).
+* **O Menu (UI):** Faz o `ConsoleController`. É aquele `switch/case` pro usuário navegar. Você vai chamar os meus UseCases lá.
+* **Main:** No final, você cria o `Main.java`. Você vai instanciar os repositórios em memória e passar pro Controller.
+
+Qualquer dúvida olha o diagrama UML que tá na raiz do projeto (`diagrama.plantuml`). Pra rodar ele precisa da extensão plantuml ai so dar Alt + D.
