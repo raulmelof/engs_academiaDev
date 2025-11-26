@@ -1,0 +1,207 @@
+@startuml
+
+!theme plain
+hide empty members
+
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+
+package "Domain Layer" #FFDDDD {
+    
+    enum DifficultyLevel {
+        BEGINNER
+        INTERMEDIATE
+        ADVANCED
+    }
+
+    enum CourseStatus {
+        ACTIVE
+        INACTIVE
+    }
+
+    class Course {
+        - title: String
+        - description: String
+        - instructorName: String
+        - duration: int
+        - difficulty: DifficultyLevel
+        - status: CourseStatus
+        + getTitle(): String
+        + isActive(): boolean
+    }
+
+    abstract class User {
+        - name: String
+        - email: String
+        + getEmail(): String
+    }
+
+    class Admin extends User {
+    }
+
+    class Student extends User {
+        - subscriptionPlan: SubscriptionPlan
+        + canEnroll(): boolean
+    }
+
+    interface SubscriptionPlan {
+        + canEnroll(activeEnrollments: int): boolean
+    }
+
+    class BasicPlan implements SubscriptionPlan {
+        ' Regra: Max 3 cursos
+    }
+
+    class PremiumPlan implements SubscriptionPlan {
+        ' Regra: Ilimitado
+    }
+
+    class Enrollment {
+        - student: Student
+        - course: Course
+        - progress: int
+        - date: LocalDateTime
+        + updateProgress(newProgress: int)
+    }
+
+    class SupportTicket {
+        - id: UUID
+        - title: String
+        - message: String
+        - user: User
+        - date: LocalDateTime
+    }
+
+    exception EnrollmentException
+}
+
+package "Application Layer" #DDFFDD {
+    
+    package "Repositories (Interfaces)" {
+        interface CourseRepository {
+            + save(course: Course)
+            + findByTitle(title: String): Optional<Course>
+            + findAll(): List<Course>
+        }
+
+        interface UserRepository {
+            + save(user: User)
+            + findByEmail(email: String): Optional<User>
+        }
+
+        interface EnrollmentRepository {
+            + save(enrollment: Enrollment)
+            + countActiveByStudent(student: Student): int
+            + findByStudent(student: Student): List<Enrollment>
+        }
+
+        interface SupportTicketQueue {
+            + add(ticket: SupportTicket)
+            + next(): Optional<SupportTicket>
+            + isEmpty(): boolean
+        }
+    }
+
+    package "UseCases" {
+        class MatricularAlunoUseCase {
+            + execute(emailStudent: String, courseTitle: String)
+        }
+        
+        class AtualizarProgressoUseCase {
+            + execute(emailStudent: String, courseTitle: String, newProgress: int)
+        }
+
+        class GerarRelatoriosUseCase {
+            ' Streams API logic here
+            + getCoursesByDifficulty(): Map
+            + getUniqueInstructors(): Set
+            + getStudentsByPlan(): Map
+        }
+
+        class AbrirTicketUseCase {
+            + execute(userEmail: String, title: String, message: String)
+        }
+
+        class AtenderTicketUseCase {
+            + execute(): SupportTicket
+        }
+        
+        class GerenciarStatusCursoUseCase {
+             + execute(title: String, status: CourseStatus)
+        }
+    }
+}
+
+package "Infrastructure Layer" #DDDDFF {
+    
+    package "Persistence (In-Memory)" {
+        class CourseRepositoryEmMemoria implements CourseRepository {
+            - db: Map<String, Course>
+        }
+
+        class UserRepositoryEmMemoria implements UserRepository {
+            - db: Map<String, User>
+        }
+
+        class EnrollmentRepositoryEmMemoria implements EnrollmentRepository {
+            - db: List<Enrollment>
+        }
+
+        class SupportTicketQueueEmMemoria implements SupportTicketQueue {
+            - queue: Queue<SupportTicket>
+            ' Implementa FIFO
+        }
+    }
+
+    package "Utils" {
+        class GenericCsvExporter {
+            ' Reflection API implementation
+            + exportToCsv(data: List<?>): String
+        }
+    }
+
+    package "UI" {
+        class ConsoleController {
+            - scanner: Scanner
+            + start()
+        }
+        
+        class ConsoleView {
+            + showMenu()
+            + printResult(msg: String)
+        }
+    }
+}
+
+package "Main Layer" #FFFFCC {
+    class Main {
+        + main(args: String[])
+    }
+    
+    class InitialData {
+        + load(repos...)
+    }
+}
+
+MatricularAlunoUseCase ..> CourseRepository : uses
+MatricularAlunoUseCase ..> UserRepository : uses
+MatricularAlunoUseCase ..> EnrollmentRepository : uses
+GerarRelatoriosUseCase ..> CourseRepository : uses
+GerarRelatoriosUseCase ..> EnrollmentRepository : uses
+
+ConsoleController --> MatricularAlunoUseCase : calls
+ConsoleController --> GerarRelatoriosUseCase : calls
+ConsoleController --> GenericCsvExporter : uses (Reflection) [cite: 146]
+
+Main ..> ConsoleController : creates
+Main ..> InitialData : calls
+Main ..> CourseRepositoryEmMemoria : instantiates
+Main ..> MatricularAlunoUseCase : instantiates & injects repos
+
+Student --> SubscriptionPlan
+Enrollment --> Student
+Enrollment --> Course
+Course --> DifficultyLevel
+Course --> CourseStatus
+
+@enduml
