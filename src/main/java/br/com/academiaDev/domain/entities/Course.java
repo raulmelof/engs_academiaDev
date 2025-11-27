@@ -4,11 +4,11 @@ import br.com.academiaDev.domain.enums.CourseStatus;
 import br.com.academiaDev.domain.enums.DifficultyLevel;
 
 public class Course {
-    private String title;
-    private String description;
-    private String instructorName;
-    private int durationInHours;
-    private DifficultyLevel difficultyLevel;
+    private final String title;
+    private final String description;
+    private final String instructorName;
+    private final int durationInHours;
+    private final DifficultyLevel difficultyLevel;
     private CourseStatus status;
 
     public Course(String title, String description, String instructorName, int durationInHours, DifficultyLevel difficultyLevel) {

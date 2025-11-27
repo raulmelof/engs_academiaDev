@@ -1,14 +1,15 @@
 package br.com.academiaDev.infrastructure.ui.menu;
 
-import br.com.academiaDev.application.usecases.GerenciarStatusCursoUseCase;
-import br.com.academiaDev.application.usecases.AtenderTicketUseCase;
-import br.com.academiaDev.application.usecases.GerarRelatoriosUseCase;
-import br.com.academiaDev.application.usecases.AbrirTicketUseCase;
-import br.com.academiaDev.application.usecases.ConsultarCatalogoUseCase;
-import br.com.academiaDev.application.usecases.GerenciarPlanoAlunoUseCase;
-import br.com.academiaDev.application.usecases.ExportarDadosUseCase;
-import br.com.academiaDev.domain.enums.CourseStatus;
 import java.util.Scanner;
+
+import br.com.academiaDev.application.usecases.AbrirTicketUseCase;
+import br.com.academiaDev.application.usecases.AtenderTicketUseCase;
+import br.com.academiaDev.application.usecases.ConsultarCatalogoUseCase;
+import br.com.academiaDev.application.usecases.ExportarDadosUseCase;
+import br.com.academiaDev.application.usecases.GerarRelatoriosUseCase;
+import br.com.academiaDev.application.usecases.GerenciarPlanoAlunoUseCase;
+import br.com.academiaDev.application.usecases.GerenciarStatusCursoUseCase;
+import br.com.academiaDev.domain.enums.CourseStatus;
 
 public class AdminMenuHandler implements MenuHandler {
     private final Scanner scanner;
@@ -77,13 +78,14 @@ public class AdminMenuHandler implements MenuHandler {
         String escolha = scanner.nextLine().trim();
 
         CourseStatus status;
-        if ("1".equals(escolha)) {
-            status = CourseStatus.ACTIVE;
-        } else if ("0".equals(escolha)) {
-            status = CourseStatus.INACTIVE;
-        } else {
-            System.out.println("Opção inválida!");
-            return;
+        
+        switch (escolha) {
+            case "1" -> status = CourseStatus.ACTIVE;
+            case "0" -> status = CourseStatus.INACTIVE;
+            default -> {
+                System.out.println("Opção inválida!");
+                return;
+            }
         }
 
         try {

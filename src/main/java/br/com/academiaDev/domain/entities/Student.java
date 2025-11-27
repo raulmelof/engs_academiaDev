@@ -1,7 +1,7 @@
 package br.com.academiaDev.domain.entities;
 
 public class Student extends User {
-    private SubscriptionPlan subscriptionPlan;
+    private final SubscriptionPlan subscriptionPlan;
 
     public Student(String name, String email, SubscriptionPlan subscriptionPlan) {
         super(name, email);

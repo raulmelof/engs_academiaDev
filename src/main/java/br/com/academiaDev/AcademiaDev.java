@@ -89,7 +89,6 @@ public class AcademiaDev {
         );
         
         consoleController.start();
-        scanner.close();
     }
 
     private static void inicializarDados(CourseRepositoryInMemory courseRepo) {
