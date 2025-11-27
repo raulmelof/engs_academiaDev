@@ -1,11 +1,12 @@
 package br.com.academiaDev.infrastructure.ui;
 
+import java.util.Scanner;
+
 import br.com.academiaDev.application.usecases.LoginUseCase;
 import br.com.academiaDev.application.usecases.UserRole;
 import br.com.academiaDev.infrastructure.ui.menu.AdminMenuHandler;
-import br.com.academiaDev.infrastructure.ui.menu.StudentMenuHandler;
 import br.com.academiaDev.infrastructure.ui.menu.MenuHandler;
-import java.util.Scanner;
+import br.com.academiaDev.infrastructure.ui.menu.StudentMenuHandler;
 
 public class ConsoleController {
     private final Scanner scanner = new Scanner(System.in);
@@ -34,13 +35,16 @@ public class ConsoleController {
 
             MenuHandler currentMenuStrategy;
 
-            if (role == UserRole.ADMIN) {
-                currentMenuStrategy = adminMenu;
-            } else if (role == UserRole.STUDENT) {
-                currentMenuStrategy = studentMenu;
-            } else {
+            if (null == role) {
                 System.out.println("Acesso negado.");
                 return;
+            } else switch (role) {
+                case ADMIN -> currentMenuStrategy = adminMenu;
+                case STUDENT -> currentMenuStrategy = studentMenu;
+                default -> {
+                    System.out.println("Acesso negado.");
+                    return;
+                }
             }
 
             runMenuLoop(currentMenuStrategy);

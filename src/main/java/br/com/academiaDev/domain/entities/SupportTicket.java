@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class SupportTicket {
-    private UUID id;
-    private String title;
-    private String message;
-    private User user;
-    private LocalDateTime date;
+    private final UUID id;
+    private final String title;
+    private final String message;
+    private final User user;
+    private final LocalDateTime date;
 
     public SupportTicket(String title, String message, User user) {
         this.id = UUID.randomUUID();
