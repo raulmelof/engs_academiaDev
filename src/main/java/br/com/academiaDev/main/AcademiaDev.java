@@ -1,4 +1,4 @@
-package br.com.academiaDev;
+package br.com.academiaDev.main;
 
 import java.util.Scanner;
 
