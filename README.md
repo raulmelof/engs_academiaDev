@@ -46,3 +46,5 @@ seguinte, ja adiantei a configuração do projeto, to usando **Maven** e **Java 
 * **Main:** No final, você cria o `Main.java`. Você vai instanciar os repositórios em memória e passar pro Controller.
 
 Qualquer dúvida olha o diagrama UML que tá na raiz do projeto (`diagrama.plantuml`). Pra rodar ele precisa da extensão plantuml ai so dar Alt + D.
+
+Criei uma entidade Student mas essa parte é sua, criei so o basico pra meu cosigo nao quebrar
