@@ -18,8 +18,8 @@ import br.com.academiaDev.application.usecases.CancelarMatriculaUseCase;
 import br.com.academiaDev.application.usecases.ConsultarCatalogoUseCase;
 import br.com.academiaDev.application.usecases.GerenciarPlanoAlunoUseCase;
 
-import br.com.academiaDev.infrastructure.persistence.CourseRepositoryEmMemoria;
-import br.com.academiaDev.infrastructure.persistence.UserRepositoryEmMemoria;
+import br.com.academiaDev.infrastructure.persistence.CourseRepositoryInMemory;
+import br.com.academiaDev.infrastructure.persistence.UserRepositoryInMemory;
 import br.com.academiaDev.infrastructure.persistence.EnrollmentRepositoryEmMemoria;
 import br.com.academiaDev.infrastructure.persistence.SupportTicketQueueEmMemoria;
 import br.com.academiaDev.infrastructure.ui.ConsoleController;
@@ -34,8 +34,8 @@ public class AcademiaDev {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        CourseRepositoryEmMemoria courseRepo = new CourseRepositoryEmMemoria();
-        UserRepositoryEmMemoria userRepo = new UserRepositoryEmMemoria();
+        CourseRepositoryInMemory courseRepo = new CourseRepositoryInMemory();
+        UserRepositoryInMemory userRepo = new UserRepositoryInMemory();
         EnrollmentRepositoryEmMemoria enrollmentRepo = new EnrollmentRepositoryEmMemoria();
         SupportTicketQueueEmMemoria ticketQueueRepo = new SupportTicketQueueEmMemoria();
 
