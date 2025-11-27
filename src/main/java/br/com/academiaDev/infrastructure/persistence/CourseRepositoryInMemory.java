@@ -9,7 +9,7 @@ import java.util.Optional;
 import br.com.academiaDev.application.repositories.CourseRepository;
 import br.com.academiaDev.domain.entities.Course;
 
-public class CourseRepositoryEmMemoria implements CourseRepository {
+public class CourseRepositoryInMemory implements CourseRepository {
     private final Map<String, Course> db = new HashMap<>();
 
     @Override
