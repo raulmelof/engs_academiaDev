@@ -1,5 +1,10 @@
 package br.com.academiaDev.application.repositories;
 
-public class UserRepository {
-    
+import java.util.Optional;
+
+import br.com.academiaDev.domain.entities.User;
+
+public interface UserRepository {
+    void save(User user);
+    Optional<User> findByEmail(String email);
 }
