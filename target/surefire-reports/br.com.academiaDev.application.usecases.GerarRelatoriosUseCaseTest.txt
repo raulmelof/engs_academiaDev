@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: br.com.academiaDev.application.usecases.GerarRelatoriosUseCaseTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 s -- in br.com.academiaDev.application.usecases.GerarRelatoriosUseCaseTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 s -- in br.com.academiaDev.application.usecases.GerarRelatoriosUseCaseTest
