@@ -52,8 +52,10 @@ class AtualizarProgressoUseCaseTest {
     void deveFalharSeMatriculaNaoEncontrada() {
         when(enrollmentRepository.findAll()).thenReturn(List.of());
 
-        assertThrows(BusinessException.class, () -> 
+        BusinessException exception = assertThrows(BusinessException.class, () -> 
             useCase.execute("email", "curso", 50)
         );
+        
+        assertEquals("Enrollment not found.", exception.getMessage());
     }
 }

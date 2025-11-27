@@ -9,8 +9,8 @@ class GenericCsvExporterTest {
 
     @SuppressWarnings("unused")
     static class ItemTeste {
-        private String nome;
-        private int valor;
+        private final String nome;
+        private final int valor;
 
         public ItemTeste(String nome, int valor) {
             this.nome = nome;
