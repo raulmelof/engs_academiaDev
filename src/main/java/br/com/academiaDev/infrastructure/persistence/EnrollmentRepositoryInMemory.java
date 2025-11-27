@@ -1,12 +1,11 @@
 package br.com.academiaDev.infrastructure.persistence;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import br.com.academiaDev.application.repositories.EnrollmentRepository;
 import br.com.academiaDev.domain.entities.Enrollment;
 import br.com.academiaDev.domain.entities.Student;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class EnrollmentRepositoryInMemory implements EnrollmentRepository {
     private final List<Enrollment> db = new ArrayList<>();
@@ -34,5 +33,10 @@ public class EnrollmentRepositoryInMemory implements EnrollmentRepository {
                 .filter(e -> e.getStudent().getEmail().equals(student.getEmail()))
                 .filter(e -> e.getCourse().getStatus() == br.com.academiaDev.domain.enums.CourseStatus.ACTIVE)
                 .count();
+    }
+
+    @Override
+    public void delete(Enrollment enrollment) {
+        db.remove(enrollment);
     }
 }
